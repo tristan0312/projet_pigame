@@ -1,7 +1,7 @@
 import pygame, sys
 from pygame.locals import *
 
-pygame.init()
+pygame.init() #teste edition de github
 
 fenetre = pygame.display.set_mode((640, 480))
 fenetre.fill([10,186,181])
