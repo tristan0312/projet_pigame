@@ -168,14 +168,14 @@ fenetre = pygame.display.set_mode((640, 480))
 
 
 class Obstacle():
-    def __init__(self,x,y):
-        self.x = x
-        self.y = y
+    def __init__(self):
+        self.x = randint(300,900)
+        self.y = 0
     
     def affiche(self):
         perso = pygame.image.load("rondin1.png").convert_alpha()
         position_perso = perso.get_rect()
-        position_perso.topleft = (10,10)
+        position_perso.topleft = (self.x,self.y)
         fenetre.blit(perso, position_perso)
         
 
