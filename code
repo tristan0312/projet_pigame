@@ -162,14 +162,14 @@ from random import randint
 
 pygame.init()
 
-fenetre = pygame.display.set_mode((640, 480))
+fenetre = pygame.display.set_mode((1500, 900))
 
 
 
 
 class Obstacle():
     def __init__(self):
-        self.x = randint(300,900)
+        self.x = randint(300,1100)
         self.y = 0
     
     def affiche(self):
@@ -177,16 +177,24 @@ class Obstacle():
         position_perso = perso.get_rect()
         position_perso.topleft = (self.x,self.y)
         fenetre.blit(perso, position_perso)
+                
         
 
         
-rondin = Obstacle(100,100)    
+lst_obs = []
+for _ in range(10):
+    lst_obs.append(Obstacle())
 
 
 
 while True:
     fenetre.fill([10,186,181])
-    rondin.affiche()
-    pygame.display.flip()    
+    for obstacle in lst_obs:
+        obstacle.affiche()
+        
     
+    
+    pygame.draw.line(fenetre,(0,0,0),[300,0],[300,900],5)
+    pygame.draw.line(fenetre,(0,0,0),[1200,0],[1200,900],5)
+    pygame.display.flip()
     
