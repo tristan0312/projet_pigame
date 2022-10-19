@@ -1,0 +1,145 @@
+import pygame, sys
+from pygame.locals import *
+from random import randint
+import time 
+
+pygame.init()
+pygame.key.set_repeat(50)
+
+fenetre = pygame.display.set_mode((1500, 900))
+
+
+perso = pygame.image.load("perso.png").convert_alpha()
+position_perso = perso.get_rect()
+position_perso.topleft = (700,750)
+
+
+class Obstacle():
+    def __init__(self):
+        self.x = randint(300,1100)
+        self.y = 0
+    
+    def affiche(self):
+        perso = pygame.image.load("rondin1.png").convert_alpha()
+        position_perso = perso.get_rect()
+        position_perso.topleft = (self.x,self.y)
+        fenetre.blit(perso, position_perso)
+       
+
+
+
+
+
+
+
+
+
+pas_deplacement = 15
+
+pygame.mixer.init()
+pygame.mixer.music.load("musique.mp3") # import du fichier
+pygame.mixer.music.play() # on joue le fichier
+pygame.mixer.music.set_volume(0.6) # réglage du volume 
+
+
+def crash():
+    police = pygame.font.SysFont('monospace',100)
+    image_texte = police.render("game over", 1, (255,0,0))
+    fenetre.blit(image_texte,(500,300))
+    pygame.display.flip()
+
+    
+def start():
+    police = pygame.font.SysFont('monospace',100)
+    image_texte = police.render("3", 1, (255,0,0))
+    fenetre.blit(image_texte,(400,300))
+    pygame.display.flip()
+    time.sleep(1)
+    police = pygame.font.SysFont('monospace',100)
+    image_texte = police.render("2", 1, (255,79,0))
+    fenetre.blit(image_texte,(700,300))
+    pygame.display.flip()
+    time.sleep(1)
+    police = pygame.font.SysFont('monospace',100)
+    image_texte = police.render("1", 1, (0,255,0))
+    fenetre.blit(image_texte,(1000,300))
+    pygame.display.flip()
+    time.sleep(1)
+    
+
+
+    
+start()
+
+
+
+lst_obs = []
+for _ in range(10):
+    lst_obs.append(Obstacle())
+
+while True:
+    fenetre.fill([110,156,0])
+    
+    
+    
+    for obstacle in lst_obs:
+        obstacle.affiche()
+        
+
+    x = position_perso[0]
+    y = position_perso[1]
+    
+    
+    
+    
+    
+    if y<=-50:
+        position_perso = position_perso.move(0,pas_deplacement)
+        win()
+        time.sleep(2)
+        pygame.display.quit()
+        sys.exit()
+        
+    
+    if y >= 820:
+        position_perso = position_perso.move(0,-pas_deplacement)
+   
+    if x <= 265:
+        position_perso = position_perso.move(pas_deplacement,0)
+            
+    if x >= 1135:
+        position_perso = position_perso.move(-pas_deplacement,0)
+        
+    
+        
+   
+        
+       
+    
+           
+    for event in pygame.event.get() :
+        if event.type == KEYDOWN:
+
+            if event.key == K_RIGHT : 
+                position_perso = position_perso.move(pas_deplacement,0)
+
+            if event.key == K_LEFT : 
+                position_perso = position_perso.move(-pas_deplacement,0)
+                
+            
+                
+
+        
+        if event.type == pygame.QUIT:
+            pygame.display.quit()
+            sys.exit()
+
+    
+    pygame.draw.line(fenetre,(0,0,0),[300,0],[300,900],5)
+    pygame.draw.line(fenetre,(0,0,0),[1200,0],[1200,900],5)
+    police = pygame.font.SysFont('monospace',50)
+    image_texte = police.render("niveau 1", 1, (0,0,0))
+    fenetre.blit(image_texte,(0,0))
+    fenetre.blit(perso, position_perso)
+    
+    pygame.display.flip()
