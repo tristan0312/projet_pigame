@@ -1,0 +1,5 @@
+#include <stdio.h> ---- appelle la bibliotheque
+printf() -- affiche quelque chose 
+main() -- fonction tout le code qui se situe entre {} s'executera 
+return 0  -- termine le termine la main()fonction
+\n -- revinent a la ligne 
